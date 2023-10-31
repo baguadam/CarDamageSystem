@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         });
 
         $damages->each(function($damage) use (&$vehicles) {
-            $damage->vehicles()->attach($vehicles->random(rand(1, $vehicles->count())));
+            $damage->vehicles()->attach($vehicles->random(rand(1, 5)));
         });
     }
 }
