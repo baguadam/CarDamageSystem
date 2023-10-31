@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('vehicle_damage', function (Blueprint $table) {
             $table->primary(['vehicle_id', 'damage_id']);
 
-            $table->unsignedBigInteger('vehicle_id');
-            $table->unsignedBigInteger('damage_id');
+            $table->unsignedBigInteger('vehicle_id')->nullable();
+            $table->unsignedBigInteger('damage_id')->nullable();
             $table->timestamps();
 
             $table->foreign('vehicle_id')->references('id')->on('vehicles')->onDelete('cascade');

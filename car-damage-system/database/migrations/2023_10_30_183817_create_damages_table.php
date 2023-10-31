@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('place');
             $table->date('date');
-            $table->string('desc');
+            $table->text('desc');
             $table->timestamps();
         });
     }

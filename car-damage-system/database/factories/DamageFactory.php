@@ -17,7 +17,9 @@ class DamageFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'place' => fake()->city(),
+            'date'  => fake()->dateTimeBetween(),
+            'text'  => fake()->text(),
         ];
     }
 }

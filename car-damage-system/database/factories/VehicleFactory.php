@@ -16,8 +16,26 @@ class VehicleFactory extends Factory
      */
     public function definition(): array
     {
+        $models = [
+            "KIA",
+            "Huyndai",
+            "Honda",
+            "Chevrolet",
+            "Opel",
+            "Mercedes",
+            "BMW",
+            "Audi",
+            "Ford",
+            "Porsche",
+            "Fiat",
+            "Nissan"
+        ];
+
         return [
-            //
+            'license' => fake()->regexify('[A-Z]{3}-\d{3}'),
+            'model'   => fake()->randomElement($models),
+            'type'    => fake()->text(8),
+            'year'    => fake()->dateTimeBetween('',''),
         ];
     }
 }

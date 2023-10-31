@@ -17,7 +17,8 @@ class HistoryFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'license'     => fake()->regexify('[A-Z]{3}-\d{3}'),
+            'search_time' => fake()->dateTimeBetween(2021, 2023),
         ];
     }
 }

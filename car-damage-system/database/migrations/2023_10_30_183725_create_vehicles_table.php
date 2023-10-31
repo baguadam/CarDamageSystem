@@ -16,9 +16,8 @@ return new class extends Migration
             $table->string('license')->unique();
             $table->string('model');
             $table->string('type');
-            $table->date('year');
-            $table->string('img_name');
-            $table->string('img_hash_name');
+            $table->integer('year');
+            $table->string('img_hash_name')->nullable();
             $table->timestamps();
         });
     }
