@@ -3,6 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Damage;
+use App\Models\History;
+use App\Models\User;
+use App\Models\Vehicle;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +17,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $users = User::factory( rand(20, 30) )->create();
+        $vehicles = Vehicle::factory( rand(10, 20) )->create();
+        $damages = Damage::factory( rand(10,15) )->create();
+        $histories = History ::factory( rand(20,30) )->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $histories->each(function($history) use (&$users) {
+            $history->user()->associate($users->random())->save();
+        });
+
+        $damages->each(function($damage) use (&$vehicles) {
+            $damage->vehicles()->attach($vehicles->random(rand(1, $vehicles->count())));
+        });
     }
 }

@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vehicle_damage', function (Blueprint $table) {
-            $table->primary(['vehicle_id', 'damage_id']);
+        Schema::create('damage_vehicle', function (Blueprint $table) {
+            $table->primary(['damage_id', 'vehicle_id']);
 
-            $table->unsignedBigInteger('vehicle_id')->nullable();
             $table->unsignedBigInteger('damage_id')->nullable();
-            $table->timestamps();
+            $table->unsignedBigInteger('vehicle_id')->nullable();
 
             $table->foreign('vehicle_id')->references('id')->on('vehicles')->onDelete('cascade');
             $table->foreign('damage_id')->references('id')->on('damages')->onDelete('cascade');
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vehicle_damage');
+        Schema::dropIfExists('damage_vehicle');
     }
 };

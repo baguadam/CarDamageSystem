@@ -19,7 +19,7 @@ class DamageFactory extends Factory
         return [
             'place' => fake()->city(),
             'date'  => fake()->dateTimeBetween(),
-            'text'  => fake()->text(),
+            'desc'  => fake()->text(),
         ];
     }
 }
