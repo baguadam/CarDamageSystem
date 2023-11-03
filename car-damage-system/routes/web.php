@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DamageController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,8 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::resource('damages', DamageController::class);
+
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('damages.index');
 });
 
 Route::get('/dashboard', function () {
