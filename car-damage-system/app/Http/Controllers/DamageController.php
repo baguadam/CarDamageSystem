@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\damage;
+use App\Models\Damage;
 use App\Http\Requests\StoredamageRequest;
 use App\Http\Requests\UpdatedamageRequest;
+use App\Models\Vehicle;
+use Illuminate\Http\Request;
 
 class DamageController extends Controller
 {
@@ -13,7 +15,7 @@ class DamageController extends Controller
      */
     public function index()
     {
-        return view('damages.index');
+        return view('damages.index', ['damages' => null]);
     }
 
     /**
@@ -35,15 +37,32 @@ class DamageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(damage $damage)
+    public function show(Damage $damage)
     {
         //
+    }
+
+    public function search(Request $request) {
+        $license_plate = $request->license_plate;
+        if ($license_plate) {
+            $vehicle = Vehicle::where('license', $license_plate)->first();
+            if ($vehicle) {
+                $damages = $vehicle->damages;
+                return view('damages.index', ['damages' => $damages]);
+            }
+            else {
+                return view('damages.index', [
+                    'damages' => null]);
+            }
+        } else {
+            return view('damages.index', ['damages' => null]);
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(damage $damage)
+    public function edit(Damage $damage)
     {
         //
     }
@@ -51,7 +70,7 @@ class DamageController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatedamageRequest $request, damage $damage)
+    public function update(UpdatedamageRequest $request, Damage $damage)
     {
         //
     }
@@ -59,7 +78,7 @@ class DamageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(damage $damage)
+    public function destroy(Damage $damage)
     {
         //
     }

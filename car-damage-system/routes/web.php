@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('damages', DamageController::class);
+Route::get('/search', [DamageController::class, 'search'])->name('damages.search');
 
 Route::get('/', function () {
     return redirect()->route('damages.index');
