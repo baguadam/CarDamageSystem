@@ -19,27 +19,46 @@
             <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
         </div>
     </form>
+    @error('license_plate')
+        <div class="mt-4 bg-red-600 text-white uppercase p-3">Bad license plate format!</div>
+    @enderror
 
-    @if ($damages)
-    <table class="table-auto mt-4">
-        <thead class="uppercase text-left bg-gray-500 text-white">
-          <tr>
-            <th class="px-6 py-3">ID</th>
-            <th class="px-6 py-3">Place</th>
-            <th class="px-6 py-3">Date</th>
-            <th class="px-6 py-3">Description</th>
-          </tr>
-        </thead>
-        <tbody>
-            @foreach ($damages as $damage)
-            <tr class="border-b">
-              <td class="px-6 py-4">{{ $damage->id }}</td>
-              <td class="px-6 py-4">{{ $damage->place }}</td>
-              <td class="px-6 py-4">{{ $damage->date }}</td>
-              <td class="px-6 py-4">{{ $damage->desc }}</td>
-            </tr>
-            @endforeach
-        </tbody>
-      </table>
+
+    @if (!$errors->has('license_plate'))
+        @if ($message ?? null)
+            <div class="mt-4 bg-red-600 text-white uppercase p-3">{{ $message }}</div>
+        @endif
+
+        @if ($vehicle ?? null)
+            <h2 class="text-xl mt-4 font-extrabold mr-5">Search result: </h2>
+
+            <div>
+                <h3>{{ $vehicle->license }}, {{ $vehicle->model }} {{ $vehicle->type }} ({{ $vehicle->year }})</h3>
+                <img src="{{ asset('storage/images/' . $img_name) }}" alt="Image of the vehicle">
+            </div>
+
+            @if ($vehicle->damages)
+                <table class="table-auto mt-4">
+                    <thead class="uppercase text-left bg-gray-500 text-white">
+                    <tr>
+                        <th class="px-6 py-3">ID</th>
+                        <th class="px-6 py-3">Place</th>
+                        <th class="px-6 py-3">Date</th>
+                        <th class="px-6 py-3">Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($vehicle->damages as $damage)
+                        <tr class="border-b">
+                        <td class="px-6 py-4">{{ $damage->id }}</td>
+                        <td class="px-6 py-4">{{ $damage->place }}</td>
+                        <td class="px-6 py-4">{{ $damage->date }}</td>
+                        <td class="px-6 py-4">{{ $damage->desc }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
+        @endif
     @endif
 </x-guest-layout>
