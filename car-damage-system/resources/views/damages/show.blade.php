@@ -20,7 +20,7 @@
             </tr>
         </tbody>
     </table>
-    <div class="flex">
+    <div class="flex flex-wrap justify-center">
         @foreach ($damage->vehicles()->get() as $vehicle)
             <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow m-4">
                 @php
