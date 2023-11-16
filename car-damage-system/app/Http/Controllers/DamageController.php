@@ -39,7 +39,13 @@ class DamageController extends Controller
      */
     public function show(Damage $damage)
     {
-        //
+        if (!auth()->check() || !auth()->user()->isPremium) {
+            return redirect()->route('damages.index')->with('message', 'This page can only be accessed by premium users!');
+        }
+
+        return view('damages.show', [
+            'damage' => $damage
+        ]);
     }
 
     public function search(Request $request) {

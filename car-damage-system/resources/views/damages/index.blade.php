@@ -1,3 +1,13 @@
+@php
+   use Illuminate\Support\Facades\Session;
+
+   $displayMessage = $message ?? session('message'); // megfelelő error message
+
+   $sortedDamages = null;
+   if ($vehicle ?? null && $vehicle->damages) {
+        $sortedDamages = $vehicle->damages->sortByDesc('date'); // rendezés dátum szerinti növekvő sorrendben
+   }
+@endphp
 <x-guest-layout>
     <x-slot name="title">Car Damage System</x-slot>
     <div class="inline-flex justify-center items-center">
@@ -23,12 +33,11 @@
         <div class="mt-4 bg-red-600 text-white uppercase p-3">Bad license plate format!</div>
     @enderror
 
+    @if ($displayMessage)
+        <div class="mt-4 bg-red-600 text-white uppercase p-3">{{ $displayMessage }}</div>
+    @endif
 
     @if (!$errors->has('license_plate'))
-        @if ($message ?? null)
-            <div class="mt-4 bg-red-600 text-white uppercase p-3">{{ $message }}</div>
-        @endif
-
         @if ($vehicle ?? null)
             <h2 class="text-xl mt-4 font-extrabold mr-5">Search result: </h2>
 
@@ -37,7 +46,7 @@
                 <img src="{{ asset('storage/images/' . $img_name) }}" alt="Image of the vehicle">
             </div>
 
-            @if ($vehicle->damages)
+            @if ($sortedDamages)
                 <table class="table-auto mt-4">
                     <thead class="uppercase text-left bg-gray-500 text-white">
                     <tr>
@@ -45,16 +54,23 @@
                         <th class="px-6 py-3">Place</th>
                         <th class="px-6 py-3">Date</th>
                         <th class="px-6 py-3">Description</th>
+                        <th class="px-6 py-3">More</th>
                     </tr>
                     </thead>
                     <tbody>
-                        @foreach ($vehicle->damages as $damage)
-                        <tr class="border-b">
-                        <td class="px-6 py-4">{{ $damage->id }}</td>
-                        <td class="px-6 py-4">{{ $damage->place }}</td>
-                        <td class="px-6 py-4">{{ $damage->date }}</td>
-                        <td class="px-6 py-4">{{ $damage->desc }}</td>
-                        </tr>
+                        @foreach ($sortedDamages as $damage)
+                            <tr class="border-b">
+                                <td class="px-6 py-4">{{ $damage->id }}</td>
+                                <td class="px-6 py-4">{{ $damage->place }}</td>
+                                <td class="px-6 py-4">{{ $damage->date }}</td>
+                                <td class="px-6 py-4">{{ $damage->desc }}</td>
+                                <td class="px-6 py-4">
+                                    <a href="{{ route('damages.show', $damage) }}"
+                                       class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                                        +
+                                    </a>
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
