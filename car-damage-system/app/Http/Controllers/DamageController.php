@@ -15,7 +15,7 @@ class DamageController extends Controller
      */
     public function index()
     {
-        //
+        return view('damages.index');
     }
 
     /**
@@ -40,6 +40,37 @@ class DamageController extends Controller
     public function show(Damage $damage)
     {
         //
+    }
+
+    public function search(Request $request) {
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+
+        $request->validate([
+            'license_plate' => 'required|regex:/^[a-zA-Z]{1,3}-?\d{3}$/',
+        ]);
+
+        $license_plate = strtoupper($request->license_plate);
+        if (strlen($license_plate) !== 7) {
+            $license_plate = substr($license_plate, 0, 3) . '-' . substr($license_plate, 3);
+        }
+
+        if ($license_plate) {
+            $vehicle = Vehicle::where('license', $license_plate)->first();
+            if (!$vehicle) {
+                return view('damages.index', [
+                    'message' => 'Car cannot be found in the database!'
+                ]);
+            }
+
+            return view('damages.index', [
+                'vehicle'    => $vehicle,
+                'img_name' => $vehicle->img_hash_name ?? 'default.png'
+            ]);
+        } else {
+            return view('damages.index');
+        }
     }
 
     /**

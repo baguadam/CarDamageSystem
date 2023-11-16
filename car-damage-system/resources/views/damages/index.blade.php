@@ -1,12 +1,12 @@
 <x-guest-layout>
-    <x-slot name="title">Main page</x-slot>
+    <x-slot name="title">Car Damage System</x-slot>
     <div class="inline-flex justify-center items-center">
         <h1 class="text-4xl mb-4 font-extrabold mr-5">Car Damage System</h1>
         <h2 class="mb-6 font-normal">Welcome to Car Damage System. Are you looking for damages related to a car? Are you here to report a new accident?
             You are at the right place!</h2>
     </div>
 
-    <form method="GET" action="{{ route('vehicles.search') }}">
+    <form method="GET" action="{{ route('damages.search') }}">
         @csrf
         <label for="license-plate" class="mb-2 text-sm font-medium text-white">Search for license plate:</label>
         <div class="relative">
@@ -32,10 +32,10 @@
         @if ($vehicle ?? null)
             <h2 class="text-xl mt-4 font-extrabold mr-5">Search result: </h2>
 
-            <a href="{{ route('vehicles.show', $vehicle) }}">
+            <div>
                 <h3>{{ $vehicle->license }}, {{ $vehicle->model }} {{ $vehicle->type }} ({{ $vehicle->year }})</h3>
                 <img src="{{ asset('storage/images/' . $img_name) }}" alt="Image of the vehicle">
-            </a>
+            </div>
 
             @if ($vehicle->damages)
                 <table class="table-auto mt-4">
