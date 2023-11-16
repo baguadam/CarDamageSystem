@@ -1,7 +1,10 @@
 <x-guest-layout>
     <x-slot name="title">Details</x-slot>
     <h1 class="text-4xl mb-4 font-extrabold mr-5 text-center">Damage details</h1>
-
+    <h2 class="mb-6 font-normal">You can everything related to the clicked damage here. The table contains the details of
+        the damage itself. The corresponding cars are displayed below the table with their pictures and details. In case of
+        cars that don't exist in the database, a default picture is shown.
+    </h2>
     <table class="table-auto mt-4">
         <thead class="uppercase text-left bg-gray-500 text-white">
             <tr>
