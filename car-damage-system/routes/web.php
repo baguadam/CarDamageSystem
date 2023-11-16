@@ -3,6 +3,7 @@
 use App\Http\Controllers\DamageController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,11 +17,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('damages', DamageController::class);
-Route::get('/search', [DamageController::class, 'search'])->name('damages.search');
+Route::resource('vehicles', VehicleController::class);
+Route::get('/search', [VehicleController::class, 'search'])->name('vehicles.search');
 
 Route::get('/', function () {
-    return redirect()->route('damages.index');
+    return redirect()->route('vehicles.index');
 });
 
 Route::get('/dashboard', function () {
