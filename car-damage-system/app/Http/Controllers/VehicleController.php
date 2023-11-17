@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\vehicle;
+use App\Models\Vehicle;
 use App\Http\Requests\StorevehicleRequest;
 use App\Http\Requests\UpdatevehicleRequest;
 
@@ -21,7 +21,11 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        //
+        if (!auth()->check() || !auth()->user()->isAdmin) {
+            return redirect()->route('damages.index')->with('message', 'This page can only be accessed by ADMIN users');
+        }
+
+        return view('vehicles.create');
     }
 
     /**
@@ -35,7 +39,7 @@ class VehicleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(vehicle $vehicle)
+    public function show(Vehicle $vehicle)
     {
         //
     }
@@ -43,7 +47,7 @@ class VehicleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(vehicle $vehicle)
+    public function edit(Vehicle $vehicle)
     {
         //
     }
@@ -51,7 +55,7 @@ class VehicleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatevehicleRequest $request, vehicle $vehicle)
+    public function update(UpdateVehicleRequest $request, Vehicle $vehicle)
     {
         //
     }
@@ -59,7 +63,7 @@ class VehicleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(vehicle $vehicle)
+    public function destroy(Vehicle $vehicle)
     {
         //
     }

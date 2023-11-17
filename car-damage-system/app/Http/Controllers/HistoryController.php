@@ -18,14 +18,14 @@ class HistoryController extends Controller
             return redirect()->route('damages.index');
         }
 
-        $histories = History::where('user_id', auth()->user()->id)->paginate(10);
+        $histories = History::where('user_id', auth()->user()->id)->paginate(10); // kiszedjük paginate-tel a history-kat
         foreach ($histories as $history) {
-            $vehicle = Vehicle::where('license', $history->license)->first();
+            $vehicle = Vehicle::where('license', $history->license)->first(); // mivel olyan keresések is tárolunk, amik validak, de nemlétező rendszámra kerestek
             $image_hash_name = 'default.png';
-            if (!$vehicle) {
+            if ($vehicle) { // ha létezik a jármű
                 $image_hash_name = $vehicle->image_hash_name ?? 'default.png';
             }
-            $history->image_hash_name = $image_hash_name;
+            $history->image_hash_name = $image_hash_name; // eltároljuk a history-ban a járműhöz tartozó image nevet is
         }
 
         return view('histories.index', [

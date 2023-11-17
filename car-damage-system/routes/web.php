@@ -3,6 +3,7 @@
 use App\Http\Controllers\DamageController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('damages', DamageController::class);
 Route::resource('histories', HistoryController::class);
+Route::resource('vehicles', VehicleController::class);
 Route::get('/search', [DamageController::class, 'search'])->name('damages.search');
 
 Route::get('/', function () {
