@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\history;
+use App\Models\History;
 use App\Http\Requests\StorehistoryRequest;
 use App\Http\Requests\UpdatehistoryRequest;
+use App\Models\Vehicle;
 
 class HistoryController extends Controller
 {
@@ -17,7 +18,19 @@ class HistoryController extends Controller
             return redirect()->route('damages.index');
         }
 
-        return view('histories.index');
+        $histories = History::where('user_id', auth()->user()->id)->paginate(10);
+        foreach ($histories as $history) {
+            $vehicle = Vehicle::where('license', $history->license)->first();
+            $image_hash_name = 'default.png';
+            if (!$vehicle) {
+                $image_hash_name = $vehicle->image_hash_name ?? 'default.png';
+            }
+            $history->image_hash_name = $image_hash_name;
+        }
+
+        return view('histories.index', [
+            'histories' => $histories,
+        ]);
     }
 
     /**
