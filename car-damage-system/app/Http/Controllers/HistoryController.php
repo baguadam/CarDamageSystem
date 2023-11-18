@@ -23,7 +23,7 @@ class HistoryController extends Controller
             $vehicle = Vehicle::where('license', $history->license)->first(); // mivel olyan keresések is tárolunk, amik validak, de nemlétező rendszámra kerestek
             $image_hash_name = 'default.png';
             if ($vehicle) { // ha létezik a jármű
-                $image_hash_name = $vehicle->image_hash_name ?? 'default.png';
+                $image_hash_name = $vehicle->img_hash_name ?? 'default.png';
             }
             $history->image_hash_name = $image_hash_name; // eltároljuk a history-ban a járműhöz tartozó image nevet is
         }

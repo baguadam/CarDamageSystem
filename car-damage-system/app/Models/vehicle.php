@@ -9,6 +9,14 @@ class Vehicle extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'license',
+        'type',
+        'model',
+        'year',
+        'img_hash_name'
+    ];
+
     public function damages() {
         return $this->belongsToMany(Damage::class);
     }

@@ -8,7 +8,9 @@
     <div class="flex flex-wrap justify-center">
     @foreach ($histories as $history)
         <a href=" {{ route('damages.search', ['license_plate' => $history->license]) }} " class="max-w-sm bg-white border border-gray-200 rounded-lg shadow m-4">
-            <img class="max-w-[200px]" src="{{ asset('storage/images/' . $history->image_hash_name) }}" alt="Picture of the related car" />
+            <div class="flex justify-center">
+                <img class="max-w-20 max-h-20" src="{{ asset('storage/images/' . $history->image_hash_name) }}" alt="Picture of the related car" />
+            </div>
 
             <dl class="max-w-md text-gray-900 divide-y divide-gray-200 p-3">
                 <div class="flex flex-col pb-2">

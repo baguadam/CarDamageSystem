@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vehicle;
-use App\Http\Requests\StorevehicleRequest;
 use App\Http\Requests\UpdatevehicleRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class VehicleController extends Controller
 {
@@ -31,9 +32,47 @@ class VehicleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorevehicleRequest $request)
+    public function store(Request $request)
     {
-        //
+        if (!auth()->check() || !auth()->user()->isAdmin) {
+            return abort(403);
+        }
+
+        $request->validate([
+            'license'      => 'required|regex:/^[a-zA-Z]{1,3}-?\d{3}$/',
+            'model'        => 'required|min:1|max:50',
+            'type'         => 'required|min:1|max:50',
+            'year'         => 'required',
+            'attach_image' => 'required|file|mimes:jpg,jpeg,png|max:4096',
+        ], [
+            'required'     => 'This field cannot be empty!'
+        ]);
+
+        $license = strtoupper($request->license); // ha megfelelő, akkor teljesen nagybetűsítjük
+        // ezt követően, ha nem kötőjeles formátumban adta meg, átalakítjuk
+        if (strlen($license) !== 7) {
+            $license = substr($license, 0, 3) . '-' . substr($license, 3);
+        }
+
+        // a feltöltött kép eltárolása, a név hashelése, most nem kell ellenőrizni, hogy létezik-e a fájl
+        // mivel kötelezővé tettük a feltöltést
+        $file = $request->file('attach_image');
+        $image_hash_name = $file->hashName();
+        Storage::disk('public')->put('images/' . $image_hash_name, $file->get());
+
+        // a jármű tényleges létrehozása az adatbázisban
+        Vehicle::create([
+            'license'       => $license,
+            'model'         => $request->model,
+            'type'          => $request->type,
+            'year'          => $request->year,
+            'img_hash_name' => $image_hash_name
+        ]);
+
+        return redirect()->route('damages.index')->with([
+            'message' => 'Vehicle has been successfull stored in the database!',
+            'success' => true,
+        ]);
     }
 
     /**
