@@ -88,7 +88,15 @@ class VehicleController extends Controller
      */
     public function edit(Vehicle $vehicle)
     {
-        //
+        if (!auth()->check() || !auth()->user()->isAdmin) {
+            return redirect()->route('damages.index')->with('message', 'This page can only be accessed by ADMIN users');
+        }
+
+        $vehicle = Vehicle::findOrFail($vehicle);
+
+        return view('vehicles.edit', [
+            'vehicle' => $vehicle
+        ]);
     }
 
     /**
