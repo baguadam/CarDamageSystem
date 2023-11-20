@@ -5,12 +5,12 @@
    $isSuccess = session('success') ?? false;
 
    $sortedDamages = null;
-   if ($vehicle ?? null && $vehicle->damages) {
-        $sortedDamages = $vehicle->damages->sortByDesc('date'); // rendezés dátum szerinti növekvő sorrendben
-   }
+    if ($vehicle ?? null && !$vehicle->damages->isEmpty()) {
+        $sortedDamages = $vehicle->damages->sortByDesc('date');
+    }
 @endphp
 <x-guest-layout>
-    <x-slot name="title">Car Damage System</x-slot>
+    <x-slot name="title">Landing page</x-slot>
     <div class="inline-flex justify-center items-center">
         <h1 class="text-4xl mb-4 font-extrabold mr-5">Car Damage System</h1>
         <h2 class="mb-6 font-normal">Welcome to Car Damage System. Are you looking for damages related to a car? Are you here to report a new accident?
@@ -52,12 +52,17 @@
         @if ($vehicle ?? null)
             <h2 class="text-xl mt-4 font-extrabold mr-5">Search result: </h2>
 
-            <div>
+            <div class="mb-4">
                 <h3>{{ $vehicle->license }}, {{ $vehicle->model }} {{ $vehicle->type }} ({{ $vehicle->year }})</h3>
-                <img src="{{ asset('storage/images/' . $img_name) }}" alt="Image of the vehicle">
+                <img class="max-w-md max-h-md" src="{{ asset('storage/images/' . $img_name) }}" alt="Image of the vehicle">
             </div>
 
-            @if ($sortedDamages)
+            <a href="{{ route('vehicles.edit', $vehicle) }}"
+               class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                Edit vehicle
+            </a>
+
+            @if (!$vehicle->damages->isEmpty())
                 <table class="table-auto mt-4">
                     <thead class="uppercase text-left bg-gray-500 text-white">
                     <tr>
@@ -76,10 +81,16 @@
                                 <td class="px-6 py-4">{{ $damage->date }}</td>
                                 <td class="px-6 py-4">{{ $damage->desc }}</td>
                                 <td class="px-6 py-4">
-                                    <a href="{{ route('damages.show', $damage) }}"
-                                       class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                                        +
-                                    </a>
+                                    <div class="flex justify-center">
+                                        <a href="{{ route('damages.show', $damage) }}"
+                                           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                                            +
+                                        </a>
+                                        <a href="{{ route('damages.edit', $damage) }}"
+                                           class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                                            Edit
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
