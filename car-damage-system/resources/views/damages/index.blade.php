@@ -39,6 +39,10 @@
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ml-4">
             Create new vehicle
         </a>
+        <a href="{{ route('damages.create') }}"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ml-4">
+            Create new damage
+        </a>
     @endauth
     @error('license_plate')
         <div class="mt-4 bg-red-600 text-white uppercase p-3">Bad license plate format!</div>

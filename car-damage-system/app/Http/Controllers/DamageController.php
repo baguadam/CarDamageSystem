@@ -24,7 +24,24 @@ class DamageController extends Controller
      */
     public function create()
     {
-        //
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+
+        if (!auth()->user()->isAdmin) {
+            return redirect()->route('damages.index')->with('message', 'This page can only be accessed by premium users!');
+        }
+
+        // átadjuk a view-nak az összes rendszámot, ami az adatábizban található
+        $vehicles = Vehicle::all();
+        $licenses = [];
+        foreach ($vehicles as $vehicle) {
+            $licenses[] = $vehicle->license;
+        }
+
+        return view('damages.create', [
+            'licenses' => $licenses
+        ]);
     }
 
     /**

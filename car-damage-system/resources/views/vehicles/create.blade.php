@@ -8,7 +8,7 @@
     <form action="{{ route('vehicles.store') }}" method="POST" class="bg-white border p-5 shadow-lg rounded-lg" enctype="multipart/form-data">
         @csrf
         <div class="mb-6">
-            <label for="license" class="block mb-2 text-md font-medium text-gray-900">License</label>
+            <label for="license" class="block mb-2 text-md font-medium text-gray-900">License plate</label>
             @error('license')
                 <div class="mb-2 bg-red-600 text-white p-1 rounded-sm">{{ $message }}</div>
             @enderror
