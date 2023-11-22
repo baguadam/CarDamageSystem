@@ -1,7 +1,7 @@
 <x-guest-layout>
     <x-slot name="title">Details</x-slot>
     <h1 class="text-4xl mb-4 font-extrabold mr-5">Damage details</h1>
-    <h2 class="mb-6 font-normal">You can everything related to the clicked damage here. The table contains the details of
+    <h2 class="mb-6 font-normal">You can see everything related to the clicked damage here. The table contains the details of
         the damage itself. The corresponding cars are displayed below the table with their pictures and details. In case of
         cars that don't exist in the database, a default picture is shown.
     </h2>
@@ -12,6 +12,7 @@
                 <th class="px-6 py-3">Place</th>
                 <th class="px-6 py-3">Date</th>
                 <th class="px-6 py-3">Description</th>
+                <th class="px-6 py-3">More</th>
             </tr>
         </thead>
         <tbody>
@@ -20,6 +21,12 @@
                 <td class="px-6 py-4">{{ $damage->place }}</td>
                 <td class="px-6 py-4">{{ $damage->date }}</td>
                 <td class="px-6 py-4">{{ $damage->desc }}</td>
+                <td class="px-6 py-4">
+                    <a href="{{ route('damages.edit', $damage) }}"
+                       class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                        Edit
+                    </a>
+                </td>
             </tr>
         </tbody>
     </table>

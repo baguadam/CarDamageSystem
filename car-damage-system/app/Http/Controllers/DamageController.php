@@ -135,7 +135,21 @@ class DamageController extends Controller
      */
     public function edit(Damage $damage)
     {
-        //
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+
+        if (!auth()->user()->isAdmin) {
+            return redirect()->route('damages.index')->with('message', 'This page can only be accessed by premium users!');
+        }
+
+        // átadjuk a view-nak az összes vehiclet, innen az id-k és a rendszámok fognak kelleni
+        $vehicles = Vehicle::all();
+
+        return view('damages.edit', [
+            'damage'   => $damage,
+            'vehicles' => $vehicles
+        ]);
     }
 
     /**

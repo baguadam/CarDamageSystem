@@ -85,16 +85,10 @@
                                 <td class="px-6 py-4">{{ $damage->date }}</td>
                                 <td class="px-6 py-4">{{ $damage->desc }}</td>
                                 <td class="px-6 py-4">
-                                    <div class="flex justify-center">
-                                        <a href="{{ route('damages.show', $damage) }}"
-                                           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                                            +
-                                        </a>
-                                        <a href="{{ route('damages.edit', $damage) }}"
-                                           class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                                            Edit
-                                        </a>
-                                    </div>
+                                    <a href="{{ route('damages.show', $damage) }}"
+                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                                        +
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
