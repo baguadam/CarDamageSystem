@@ -47,9 +47,25 @@ class DamageController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoredamageRequest $request)
+    public function store(Request $request)
     {
-        //
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+
+        if (!auth()->user()->isAdmin) {
+            return abort(403);
+        }
+
+        $request->validate([
+            'place'       => 'required|min:1|max:64',
+            'date'        => 'required|date|before_or_equal:now',
+            'description' => 'nullable|min:5|max:512',
+            'licenses'    => 'required|array|min:1',
+            'licenses.*'  => 'distinct'
+        ]);
+
+        return view('damages.index');
     }
 
     /**
