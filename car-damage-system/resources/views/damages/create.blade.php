@@ -33,21 +33,21 @@
                 </div>
             </div>
             <div class="z-10 rounded-lg shadow-lg w-60 h-100 border bg-gray-100 justify-self-center">
-                @error('licenses')
+                @error('license_ids')
                     <div class="mb-2 bg-red-600 text-white p-1 rounded-sm">{{ $message }}</div>
                 @enderror
-                @error('licenses.*')
+                @error('license_ids.*')
                     <div class="mb-2 bg-red-600 text-white p-1 rounded-sm">{{ $message }}</div>
                 @enderror
                 <div class="p-3">
                     <h3>Choose vehicles!</h3>
                 </div>
                 <ul class="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownSearchButton">
-                  @foreach ($licenses as $license)
+                  @foreach ($vehicles as $vehicle)
                     <li>
                         <div class="flex items-center p-2 rounded hover:bg-gray-200 ">
-                            <input id="{{ $license }}" type="checkbox" name="licenses[]" value="{{ $license }}" @checked(in_array($license, old('licenses') ?? [])) class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
-                            <label for="{{ $license }}" class="w-full ms-2 text-sm font-medium text-gray-900 rounded">{{ $license }}</label>
+                            <input id="{{ $vehicle->license }}" type="checkbox" name="license_ids[]" value="{{ $vehicle->id }}" @checked(in_array($vehicle->id, old('license_ids') ?? [])) class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                            <label for="{{ $vehicle->license }}" class="w-full ms-2 text-sm font-medium text-gray-900 rounded">{{ $vehicle->license }}</label>
                         </div>
                     </li>
                   @endforeach

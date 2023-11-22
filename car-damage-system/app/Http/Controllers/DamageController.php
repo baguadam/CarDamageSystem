@@ -32,15 +32,11 @@ class DamageController extends Controller
             return redirect()->route('damages.index')->with('message', 'This page can only be accessed by premium users!');
         }
 
-        // átadjuk a view-nak az összes rendszámot, ami az adatábizban található
+        // átadjuk a view-nak az összes vehiclet, innen az id-k és a rendszámok fognak kelleni
         $vehicles = Vehicle::all();
-        $licenses = [];
-        foreach ($vehicles as $vehicle) {
-            $licenses[] = $vehicle->license;
-        }
 
         return view('damages.create', [
-            'licenses' => $licenses
+            'vehicles' => $vehicles
         ]);
     }
 
@@ -58,14 +54,27 @@ class DamageController extends Controller
         }
 
         $request->validate([
-            'place'       => 'required|min:1|max:64',
-            'date'        => 'required|date|before_or_equal:now',
-            'description' => 'nullable|min:5|max:512',
-            'licenses'    => 'required|array|min:1',
-            'licenses.*'  => 'distinct'
+            'place'         => 'required|min:1|max:64',
+            'date'          => 'required|date|before_or_equal:now',
+            'description'   => 'nullable|min:5|max:512',
+            'license_ids'   => 'required|array|min:1',
+            'license_ids.*' => 'distinct'
         ]);
 
-        return view('damages.index');
+        // létrehozzuk a damage-et a megfelelő táblában
+        $damage = Damage::create([
+            'place' => $request->place,
+            'date'  => $request->date,
+            'desc'  => $request->description,
+        ]);
+
+        // a kapcsolótáblában összekapcsoljuk a damage-et és a megadott rendszámokat
+        $damage->vehicles()->sync($request->license_ids);
+
+        return redirect()->route('damages.index')->with([
+            'message' => 'Newly created damage has been successfully stored in the database!',
+            'success' => true,
+        ]);
     }
 
     /**
