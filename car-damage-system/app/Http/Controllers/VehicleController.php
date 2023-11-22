@@ -142,6 +142,7 @@ class VehicleController extends Controller
             $new_image_hash_name = $vehicle->img_hash_name;
         }
 
+        // frissítjük az adatbáziban az adott járművet az új adatok alapján
         $vehicle->update([
             'license'       => $request->license,
             'model'         => $request->model,

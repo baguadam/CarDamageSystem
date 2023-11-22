@@ -42,9 +42,6 @@
         </div>
         <div class="mb-6">
             <label for="attach_image" class="block mb-2 text-md font-medium text-gray-900 ">Image of the car</label>
-            @error('attach_image')
-                <div class="mb-2 bg-red-600 text-white p-1 rounded-sm">{{ $message }}</div>
-            @enderror
             <input type="file" name="attach_image" id="attach_image" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
         </div>
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
