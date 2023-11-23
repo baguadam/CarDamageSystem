@@ -34,7 +34,6 @@
                 <div class="mb-2 bg-red-600 text-white p-1 rounded-sm">{{ $message }}</div>
             @enderror
             <select id="year" value="{{ old('year', '') }}" name="year" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                <option selected>Choose a year</option>
                 @for ($i = 1950; $i <= 2023; $i++)
                 <option value={{ $i }} {{ (old('year') == $i ? 'selected' : ($vehicle->year == $i ? 'selected' : '')) }}>{{ $i }}</option>
                 @endfor

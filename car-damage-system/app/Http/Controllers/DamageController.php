@@ -145,19 +145,52 @@ class DamageController extends Controller
 
         // átadjuk a view-nak az összes vehiclet, innen az id-k és a rendszámok fognak kelleni
         $vehicles = Vehicle::all();
+        $damage_related_vehicles = $damage->vehicles()->pluck('id')->toArray();
 
         return view('damages.edit', [
             'damage'   => $damage,
-            'vehicles' => $vehicles
+            'vehicles' => $vehicles,
+            'damage_related_vehicles' => $damage_related_vehicles
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatedamageRequest $request, Damage $damage)
+    public function update(Request $request, Damage $damage)
     {
-        //
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+
+        if (!auth()->user()->isAdmin) {
+            return abort(403);
+        }
+
+        // validáció hasonlóan a store-hoz
+        $request->validate([
+            'place'         => 'required|min:1|max:64',
+            'date'          => 'required|date|before_or_equal:now',
+            'description'   => 'nullable|min:5|max:512',
+            'license_ids'   => 'required|array|min:1',
+            'license_ids.*' => 'distinct'
+        ]);
+
+        // megkeressük a damage-et az adatbáziban, majd módosítjuk az adatokat
+        $damage = Damage::findOrFail($damage->id);
+        $damage->update([
+            'place' => $request->place,
+            'date'  => $request->date,
+            'desc'  => $request->description
+        ]);
+
+        // szinkronizáljuk a damage-hez tartozó járműveket az új lista alapján
+        $damage->vehicles()->sync($request->license_ids);
+
+        return redirect()->route('damages.index')->with([
+            'message' => 'Damage has been successfully modified!',
+            'success' => true,
+        ]);
     }
 
     /**

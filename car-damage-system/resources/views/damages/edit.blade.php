@@ -7,6 +7,7 @@
 
     <form action="{{ route('damages.update', $damage) }}" method="POST" class="bg-white border p-5 shadow-lg rounded-lg">
         @csrf
+        @method('PUT')
         <div class="mb-6">
             <label for="place" class="block mb-2 text-md font-medium text-gray-900">Place</label>
             @error('place')
@@ -47,7 +48,7 @@
                   @foreach ($vehicles as $vehicle)
                     <li>
                         <div class="flex items-center p-2 rounded hover:bg-gray-200 ">
-                            <input id="{{ $vehicle->license }}" type="checkbox" name="license_ids[]" value="{{ $vehicle->id }}" @checked(in_array($vehicle->id, old('license_ids') ?? [])) class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                            <input id="{{ $vehicle->license }}" type="checkbox" name="license_ids[]" value="{{ $vehicle->id }}" @checked(in_array($vehicle->id, old('license_ids') ?? $damage_related_vehicles)) class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
                             <label for="{{ $vehicle->license }}" class="w-full ms-2 text-sm font-medium text-gray-900 rounded">{{ $vehicle->license }}</label>
                         </div>
                     </li>
