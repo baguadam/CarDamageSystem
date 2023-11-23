@@ -22,10 +22,19 @@
                 <td class="px-6 py-4">{{ $damage->date }}</td>
                 <td class="px-6 py-4">{{ $damage->desc }}</td>
                 <td class="px-6 py-4">
-                    <a href="{{ route('damages.edit', $damage) }}"
-                       class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                        Edit
-                    </a>
+                    <div class="flex">
+                        <a href="{{ route('damages.edit', $damage) }}"
+                           class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                            Edit
+                        </a>
+                        <form action="{{ route('damages.destroy', $damage) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                                Delete
+                            </button>
+                        </form>
+                    </div>
                 </td>
             </tr>
         </tbody>

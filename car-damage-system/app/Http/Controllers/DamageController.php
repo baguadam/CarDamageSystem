@@ -198,6 +198,20 @@ class DamageController extends Controller
      */
     public function destroy(Damage $damage)
     {
-        //
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+
+        if (!auth()->user()->isAdmin) {
+            return abort(403);
+        }
+
+        $damage->vehicles()->detach();
+        $damage->delete();
+
+        return redirect()->route('damages.index')->with([
+            'message' => 'Damage has been successfully deleted!',
+            'success' => true,
+        ]);
     }
 }
