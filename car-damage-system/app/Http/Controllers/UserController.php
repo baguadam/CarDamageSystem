@@ -20,7 +20,7 @@ class UserController extends Controller
             return redirect()->route('damages.index')->with('message', 'This page can only be accessed by premium users!');
         }
 
-        $users = User::all();
+        $users = User::paginate(10);
 
         return view('users.index', [
             'users' => $users
