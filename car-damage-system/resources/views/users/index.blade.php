@@ -20,10 +20,10 @@
                         <dt class="mb-1 text-gray-500 md:text-lg">Admin</dt>
                         <dd class="text-md font-semibold">{{ $user->isAdmin ? 'Yes' : 'No' }}</dd>
                     </div>
-                    <form action="{{ route('users.update', $user) }}" method="POST">
+                    <form action="{{ route('users.update', $user->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <button class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full")>
+                        <button class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
                             {{ $user->isPremium ? 'Remove PREMIUM rank' : 'Add PREMIUM rank' }}
                         </button>
                     </form>

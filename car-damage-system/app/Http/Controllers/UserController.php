@@ -64,7 +64,23 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+
+        if (!auth()->user()->isAdmin) {
+            return abort(403);
+        }
+
+        $user = User::findOrFail($id);
+        $user->update([
+            'isPremium' => !$user->isPremium
+        ]);
+
+        return redirect()->route('damages.index')->with([
+            'message' => 'User\'s premium rank has been successdully modified',
+            'success' => true,
+        ]);
     }
 
     /**
