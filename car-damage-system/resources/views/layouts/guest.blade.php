@@ -1,3 +1,7 @@
+@php
+    use Illuminate\Support\Facades\Auth;
+@endphp
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -31,10 +35,19 @@
                           </li>
                       </ul>
                       <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 bordermd:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
-                          <li>
-                              <a href="#" class="block px-4 rounded-lg text-white text-lg md:hover:bg-transparent hover:text-blue-600 bg-blue-700">Login</a>
-                          </li>
-                      </ul>
+                            @auth
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" class="block px-4 rounded-lg text-white text-lg md:hover:bg-transparent hover:text-blue-600 bg-blue-700">Logout</button>
+                                    </form>
+                                </li>
+                            @else
+                                <li>
+                                    <a href="{{ route('login') }}" class="block px-4 rounded-lg text-white text-lg md:hover:bg-transparent hover:text-blue-600 bg-blue-700">Login</a>
+                                </li>
+                            @endauth
+                       </ul>
                     </div>
                    </nav>
                 {{ $slot }}
