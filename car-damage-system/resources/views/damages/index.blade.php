@@ -12,7 +12,7 @@
 <x-guest-layout>
     <x-slot name="title">Landing page</x-slot>
     <div class="inline-flex justify-center items-center">
-        <h1 class="text-4xl mb-4 font-extrabold mr-5">Car Damage System</h1>
+        <h1 class="text-4xl mb-4 font-extrabold mr-5 ml-2">Car Damage System</h1>
         <h2 class="mb-6 font-normal">Welcome to Car Damage System. Are you looking for damages related to a car? Are you here to report a new accident?
             You are at the right place!</h2>
     </div>
@@ -30,20 +30,7 @@
             <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
         </div>
     </form>
-    @auth
-        <a href="{{ route('histories.index') }}"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-            Search history
-        </a>
-        <a href="{{ route('vehicles.create') }}"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ml-4">
-            Create new vehicle
-        </a>
-        <a href="{{ route('damages.create') }}"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ml-4">
-            Create new damage
-        </a>
-    @endauth
+
     @error('license_plate')
         <div class="mt-4 bg-red-600 text-white uppercase p-3">Bad license plate format!</div>
     @enderror
@@ -54,46 +41,64 @@
 
     @if (!$errors->has('license_plate'))
         @if ($vehicle ?? null)
-            <h2 class="text-xl mt-4 font-extrabold mr-5">Search result: </h2>
+            <div id="search-result-container" class="flex border rounded-md shadow-lg bg-stone-50 justify-center">
+                <img class="max-w-sm max-h-sm p-7" src="{{ asset('storage/images/' . $img_name) }}" alt="Image of the vehicle">
+                <div class="max-w-md bg-white border border-gray-200 rounded-lg shadow m-7">
+                    <dl class="max-w-md text-gray-900 divide-y divide-gray-200 p-3">
+                        <div class="flex flex-col pb-2">
+                            <dt class="mb-1 text-gray-500 md:text-lg">License plate</dt>
+                            <dd class="text-md font-semibold">{{ $vehicle->license }}</dd>
+                        </div>
 
-            <div class="mb-4">
-                <h3>{{ $vehicle->license }}, {{ $vehicle->model }} {{ $vehicle->type }} ({{ $vehicle->year }})</h3>
-                <img class="max-w-md max-h-md" src="{{ asset('storage/images/' . $img_name) }}" alt="Image of the vehicle">
+                        <div class="flex flex-col pb-2">
+                            <dt class="mb-1 text-gray-500 md:text-lg">Model/Type</dt>
+                            <dd class="text-md font-semibold">{{ $vehicle->model }} - {{ $vehicle->type }}</dd>
+                        </div>
+
+                        <div class="flex flex-col pb-2">
+                            <dt class="mb-1 text-gray-500 md:text-lg">Year</dt>
+                            <dd class="text-md font-semibold">{{ $vehicle->year }}</dd>
+                        </div>
+                    </dl>
+                </div>
+                <div class="flex flex-col items-center justify-center m-7">
+                    <a href="{{ route('vehicles.edit', $vehicle) }}"
+                       class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Edit vehicle
+                    </a>
+                </div>
             </div>
 
-            <a href="{{ route('vehicles.edit', $vehicle) }}"
-               class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                Edit vehicle
-            </a>
-
             @if (!$vehicle->damages->isEmpty())
-                <table class="table-auto mt-4">
-                    <thead class="uppercase text-left bg-gray-500 text-white">
-                    <tr>
-                        <th class="px-6 py-3">ID</th>
-                        <th class="px-6 py-3">Place</th>
-                        <th class="px-6 py-3">Date</th>
-                        <th class="px-6 py-3">Description</th>
-                        <th class="px-6 py-3">More</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($sortedDamages as $damage)
-                            <tr class="border-b">
-                                <td class="px-6 py-4">{{ $damage->id }}</td>
-                                <td class="px-6 py-4">{{ $damage->place }}</td>
-                                <td class="px-6 py-4">{{ $damage->date }}</td>
-                                <td class="px-6 py-4">{{ $damage->desc }}</td>
-                                <td class="px-6 py-4">
-                                    <a href="{{ route('damages.show', $damage) }}"
-                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                                        +
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <div class="border rounded-md shadow-lg mt-4">
+                    <table class="table-auto mt-1">
+                        <thead class="uppercase text-left bg-stone-50 text-white">
+                        <tr>
+                            <th class="px-6 py-3 text-gray-900">ID</th>
+                            <th class="px-6 py-3 text-gray-900">Place</th>
+                            <th class="px-6 py-3 text-gray-900">Date</th>
+                            <th class="px-6 py-3 text-gray-900">Description</th>
+                            <th class="px-6 py-3 text-gray-900">More</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($sortedDamages as $damage)
+                                <tr class="border-b">
+                                    <td class="px-6 py-4">{{ $damage->id }}</td>
+                                    <td class="px-6 py-4">{{ $damage->place }}</td>
+                                    <td class="px-6 py-4">{{ $damage->date }}</td>
+                                    <td class="px-6 py-4">{{ $damage->desc }}</td>
+                                    <td class="px-6 py-4">
+                                        <a href="{{ route('damages.show', $damage) }}"
+                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                                            +
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             @endif
         @endif
     @endif

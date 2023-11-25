@@ -20,7 +20,7 @@
     </head>
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div class="w-full sm:max-w-[80%] mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg max mb-4">
+            <div class="w-full sm:max-w-[70%] mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg max mb-4">
                 <nav class="bg-white border-gray-200 dark:bg-gray-900 mb-5">
                     <div class="flex justify-between bg-white">
                       <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
