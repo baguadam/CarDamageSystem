@@ -5,41 +5,45 @@
         the damage itself. The corresponding cars are displayed below the table with their pictures and details. In case of
         cars that don't exist in the database, a default picture is shown.
     </h2>
-    <table class="table-auto mt-4">
-        <thead class="uppercase text-left bg-gray-500 text-white">
-            <tr>
-                <th class="px-6 py-3">ID</th>
-                <th class="px-6 py-3">Place</th>
-                <th class="px-6 py-3">Date</th>
-                <th class="px-6 py-3">Description</th>
-                <th class="px-6 py-3">More</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="border-b">
-                <td class="px-6 py-4">{{ $damage->id }}</td>
-                <td class="px-6 py-4">{{ $damage->place }}</td>
-                <td class="px-6 py-4">{{ $damage->date }}</td>
-                <td class="px-6 py-4">{{ $damage->desc }}</td>
-                <td class="px-6 py-4">
-                    <div class="flex">
-                        <a href="{{ route('damages.edit', $damage) }}"
-                           class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                            Edit
-                        </a>
-                        <form action="{{ route('damages.destroy', $damage) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                                Delete
-                            </button>
-                        </form>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="flex flex-wrap justify-center">
+
+    <div class="border rounded-md shadow-lg mt-4">
+        <table class="table-auto mt-1">
+            <thead class="uppercase text-left bg-stone-50 text-white">
+                <tr>
+                    <th class="px-6 py-3 text-gray-900">ID</th>
+                    <th class="px-6 py-3 text-gray-900">Place</th>
+                    <th class="px-6 py-3 text-gray-900">Date</th>
+                    <th class="px-6 py-3 text-gray-900">Description</th>
+                    <th class="px-6 py-3 text-gray-900 text-center">More</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-b">
+                    <td class="px-6 py-4">{{ $damage->id }}</td>
+                    <td class="px-6 py-4">{{ $damage->place }}</td>
+                    <td class="px-6 py-4">{{ $damage->date }}</td>
+                    <td class="px-6 py-4">{{ $damage->desc }}</td>
+                    <td class="px-6 py-4">
+                        <div class="flex">
+                            <a href="{{ route('damages.edit', $damage) }}"
+                               class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">
+                                Edit
+                            </a>
+                            <form action="{{ route('damages.destroy', $damage) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="flex flex-wrap justify-center border rounded-md shadow-lg bg-stone-50 mt-4">
         @foreach ($damage->vehicles()->get() as $vehicle)
             <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow m-4">
                 @php
