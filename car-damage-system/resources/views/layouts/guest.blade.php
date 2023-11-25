@@ -24,32 +24,45 @@
                 <nav class="bg-white border-gray-200 dark:bg-gray-900 mb-5">
                     <div class="flex justify-between bg-white">
                       <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
-                          <li>
-                              <a href="#" class="block py-2 px-3 md:p-0 text-gray-900 text-lg md:hover:bg-transparent hover:text-blue-600">About</a>
-                          </li>
-                          <li>
-                              <a href="#" class="block py-2 px-3 md:p-0 text-gray-900 text-lg md:hover:bg-transparent hover:text-blue-600">Services</a>
-                          </li>
-                          <li>
-                              <a href="#" class="block py-2 px-3 md:p-0 text-gray-900 text-lg  md:hover:bg-transparent hover:text-blue-600">Contact</a>
-                          </li>
+                        <li>
+                            <a href="{{ route('damages.index') }}" class="block py-2 px-3 md:p-0 text-gray-900 text-lg md:hover:bg-transparent hover:text-blue-600">Home</a>
+                        </li>
+                        @auth
+                            <li>
+                                <a href="{{ route('histories.index') }}" class="block py-2 px-3 md:p-0 text-gray-900 text-lg md:hover:bg-transparent hover:text-blue-600">Search histories</a>
+                            </li>
+                            @if (Auth::user()->isAdmin)
+                                <li>
+                                    <a href="{{ route('vehicles.create') }}" class="block py-2 px-3 md:p-0 text-gray-900 text-lg md:hover:bg-transparent hover:text-blue-600">Create new vehicle</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('damages.create') }}" class="block py-2 px-3 md:p-0 text-gray-900 text-lg  md:hover:bg-transparent hover:text-blue-600">Create new damage</a>
+                                </li>
+                                <li>
+                                  <a href="{{ route('users.index') }}" class="block py-2 px-3 md:p-0 text-gray-900 text-lg  md:hover:bg-transparent hover:text-blue-600">Edit rank</a>
+                                </li>
+                            @endif
+                        @endauth
                       </ul>
                       <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 bordermd:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
                             @auth
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
-                                        <button type="submit" class="block px-4 rounded-lg text-white text-lg md:hover:bg-transparent hover:text-blue-600 bg-blue-700">Logout</button>
+                                        <button type="submit" class="block px-4 py-2 rounded-lg text-white text-lg md:hover:bg-transparent hover:text-blue-600 bg-blue-700">Logout</button>
                                     </form>
                                 </li>
                             @else
                                 <li>
-                                    <a href="{{ route('login') }}" class="block px-4 rounded-lg text-white text-lg md:hover:bg-transparent hover:text-blue-600 bg-blue-700">Login</a>
+                                    <a href="{{ route('login') }}" class="mr-4 block px-4 py-1 rounded-lg text-white text-lg md:hover:bg-transparent hover:text-blue-600 bg-blue-700">Login</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('register') }}" class="block px-4 py-1 rounded-lg text-white text-lg md:hover:bg-transparent hover:text-blue-600 bg-blue-700">Register</a>
                                 </li>
                             @endauth
                        </ul>
                     </div>
-                   </nav>
+                </nav>
                 {{ $slot }}
             </div>
         </div>
