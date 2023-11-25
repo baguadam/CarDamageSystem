@@ -4,7 +4,7 @@
     <h2 class="mb-6 font-normal">This page can only be accessed by admin users. Here you can create new damages by filling out the form.
         For each damage more cars can be attached. It's important that one car can only be attached to the damage once.
     </h2>
-    <form action="{{ route('damages.store') }}" method="POST" class="bg-white border p-5 shadow-lg rounded-lg">
+    <form action="{{ route('damages.store') }}" method="POST" class="bg-stone-50 border p-5 shadow-lg rounded-lg">
         @csrf
         <div class="mb-6">
             <label for="place" class="block mb-2 text-md font-medium text-gray-900">Place</label>

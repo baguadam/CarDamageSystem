@@ -5,7 +5,7 @@
         clicking on the button below. You can also upload a picture of the car. Please note that without an uploaded image, our default car photo will be related to
         the newly created vehicle.
     </h2>
-    <form action="{{ route('vehicles.store') }}" method="POST" class="bg-white border p-5 shadow-lg rounded-lg" enctype="multipart/form-data">
+    <form action="{{ route('vehicles.store') }}" method="POST" class="bg-stone-50 border p-5 shadow-lg rounded-lg" enctype="multipart/form-data">
         @csrf
         <div class="mb-6">
             <label for="license" class="block mb-2 text-md font-medium text-gray-900">License plate</label>

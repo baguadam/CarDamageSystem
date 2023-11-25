@@ -5,7 +5,7 @@
         are listed here. In case of license plates that don't exist in the database, a default pictore is displayed. By clicking on a history,
         you can perform the search again.
     </h2>
-    <div class="flex flex-wrap justify-center">
+    <div class="flex flex-wrap justify-center border rounded-md shadow-lg bg-stone-50 mt-4">
     @foreach ($histories as $history)
         <a href=" {{ route('damages.search', ['license_plate' => $history->license]) }} " class="max-w-sm bg-white border border-gray-200 rounded-lg shadow m-4">
             <div class="flex justify-center">

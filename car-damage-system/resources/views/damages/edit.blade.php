@@ -5,7 +5,7 @@
         fields are filled out with the original data. You can modify any of them. You can also remove or add vehicles using the checklist.
     </h2>
 
-    <form action="{{ route('damages.update', $damage) }}" method="POST" class="bg-white border p-5 shadow-lg rounded-lg">
+    <form action="{{ route('damages.update', $damage) }}" method="POST" class="bg-stone-50 border p-5 shadow-lg rounded-lg">
         @csrf
         @method('PUT')
         <div class="mb-6">

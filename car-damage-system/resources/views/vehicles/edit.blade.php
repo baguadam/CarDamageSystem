@@ -4,7 +4,7 @@
     <h2 class="mb-6 font-normal">On this pager you can edit the chosen vehicle. Note that the license plate cannot be modified. Uploading an image again is not mandatory,
         if no image is chosen, the previous one remains.
     </h2>
-    <form action="{{ route('vehicles.update', $vehicle) }}" method="POST" class="bg-white border p-5 shadow-lg rounded-lg" enctype="multipart/form-data">
+    <form action="{{ route('vehicles.update', $vehicle) }}" method="POST" class="bg-stone-50 border p-5 shadow-lg rounded-lg" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="mb-6">
