@@ -6,7 +6,7 @@
     </h2>
     <div class="flex flex-wrap justify-center border rounded-md shadow-lg bg-stone-50 mt-4">
         @foreach ($users as $user)
-            <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow m-4">
+            <div class="w-64 bg-white border border-gray-200 rounded-lg shadow m-4">
                 <dl class="max-w-md text-gray-900 divide-y divide-gray-200 p-3">
                     <div class="flex flex-col pb-2">
                         <dt class="mb-1 text-gray-500 md:text-lg">Name</dt>
