@@ -2,7 +2,7 @@
     <x-slot name="title">History</x-slot>
     <h1 class="text-4xl mb-4 font-extrabold mr-5">Search histories</h1>
     <h2 class="mb-6 font-normal">You can see your search histories below. Only searches with valid license plate format
-        are listed here. In case of license plates that don't exist in the database, a default pictore is displayed. By clicking on a history,
+        are listed here. In case of license plates that don't exist in the database, a default picture is displayed. By clicking on a history,
         you can perform the search again.
     </h2>
     <div class="flex flex-wrap justify-center border rounded-md shadow-lg bg-stone-50 mt-4">

@@ -6,7 +6,7 @@
         cars that don't exist in the database, a default picture is shown.
     </h2>
 
-    <div class="border rounded-md shadow-lg mt-4">
+    <div class="border rounded-md shadow-lg mt-4 flex justify-center">
         <table class="table-auto mt-1">
             <thead class="uppercase text-left bg-stone-50 text-white">
                 <tr>
@@ -45,8 +45,8 @@
 
     <div class="flex flex-wrap justify-center border rounded-md shadow-lg bg-stone-50 mt-4">
         @foreach ($damage->vehicles()->get() as $vehicle)
-            <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow m-4">
-                <img src="{{ asset('storage/images/' . $vehicle->img_hash_name) }}" alt="Picture of the related car" />
+            <div class="w-60 h-64 bg-white border border-gray-200 rounded-lg shadow m-4">
+                <img class="h-[20%]" src="{{ asset('storage/images/' . $vehicle->img_hash_name) }}" alt="Picture of the related car" />
 
                 <dl class="max-w-md text-gray-900 divide-y divide-gray-200 p-3">
                     <div class="flex flex-col pb-2">

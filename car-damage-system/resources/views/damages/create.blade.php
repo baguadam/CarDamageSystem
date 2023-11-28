@@ -2,7 +2,7 @@
     <x-slot name="title">Create damage</x-slot>
     <h1 class="text-4xl mb-4 font-extrabold mr-5">Create new damage</h1>
     <h2 class="mb-6 font-normal">This page can only be accessed by admin users. Here you can create new damages by filling out the form.
-        For each damage more cars can be attached. It's important that one car can only be attached to the damage once.
+        For each damage more cars can be attached to. It's important that one car can only be attached to the damage once.
     </h2>
     <form action="{{ route('damages.store') }}" method="POST" class="bg-stone-50 border p-5 shadow-lg rounded-lg">
         @csrf
@@ -27,9 +27,7 @@
                     @error('description')
                         <div class="mb-2 bg-red-600 text-white p-1 rounded-sm">{{ $message }}</div>
                     @enderror
-                    <textarea style="resize: none;" id="description" name="description" rows="4" cols="50">
-                        {{ old('description', '') }}
-                    </textarea>
+                    <textarea style="resize: none;" id="description" name="description" rows="4" cols="35">{{ old('description', '') }}</textarea>
                 </div>
             </div>
             <div class="z-10 rounded-lg shadow-lg w-60 h-100 border bg-gray-100 justify-self-center">

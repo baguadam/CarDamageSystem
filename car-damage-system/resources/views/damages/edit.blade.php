@@ -30,9 +30,7 @@
                     @error('description')
                         <div class="mb-2 bg-red-600 text-white p-1 rounded-sm">{{ $message }}</div>
                     @enderror
-                    <textarea style="resize: none;" id="description" name="description" rows="4" cols="50">
-                        {{ old('description', $damage->desc) }}
-                    </textarea>
+                    <textarea style="resize: none;" id="description" name="description" rows="4" cols="35">{{ old('description', $damage->desc) }}</textarea>
                 </div>
             </div>
             <div class="z-10 rounded-lg shadow-lg w-60 h-100 border bg-gray-100 justify-self-center">

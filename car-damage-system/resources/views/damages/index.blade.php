@@ -41,9 +41,9 @@
 
     @if (!$errors->has('license_plate'))
         @if ($vehicle ?? null)
-            <div id="search-result-container" class="flex border rounded-md shadow-lg bg-stone-50 justify-center">
+            <div id="search-result-container" class="flex border rounded-md shadow-lg bg-stone-50 justify-center items-center">
                 <img class="max-w-sm max-h-sm p-7" src="{{ asset('storage/images/' . $img_name) }}" alt="Image of the vehicle">
-                <div class="max-w-md bg-white border border-gray-200 rounded-lg shadow m-7">
+                <div class="h-60 max-w-md bg-white border border-gray-200 rounded-lg shadow m-7">
                     <dl class="max-w-md text-gray-900 divide-y divide-gray-200 p-3">
                         <div class="flex flex-col pb-2">
                             <dt class="mb-1 text-gray-500 md:text-lg">License plate</dt>
@@ -70,7 +70,7 @@
             </div>
 
             @if (!$vehicle->damages->isEmpty())
-                <div class="border rounded-md shadow-lg mt-4">
+                <div class="border rounded-md shadow-lg mt-4 flex justify-center">
                     <table class="table-auto mt-1">
                         <thead class="uppercase text-left bg-stone-50 text-white">
                         <tr>
