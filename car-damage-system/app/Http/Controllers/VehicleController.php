@@ -58,11 +58,17 @@ class VehicleController extends Controller
             $license = substr($license, 0, 3) . '-' . substr($license, 3);
         }
 
+        // ha már van feltöltve adott rendszámmal jármű, visszairányítunk
+        if (Vehicle::where('license', $license)->exists()) {
+            return redirect()->route('damages.index')->with([
+                'message' => 'License plate already exists in the database!'
+            ]);
+         }
+
         // a feltöltött kép eltárolása, a név hashelése, most nem kell ellenőrizni, hogy létezik-e a fájl
         // mivel kötelezővé tettük a feltöltést
         $file = $request->file('attach_image');
         $image_hash_name = $file->hashName();
-        Storage::disk('public')->put('images/' . $image_hash_name, $file->get());
 
         // a jármű tényleges létrehozása az adatbázisban
         Vehicle::create([
@@ -72,6 +78,9 @@ class VehicleController extends Controller
             'year'          => $request->year,
             'img_hash_name' => $image_hash_name
         ]);
+
+        // ténylegesen csak akkor tároljuk el a képet, ha sikeres volt a jármű létrehozása az adatbáizban
+        Storage::disk('public')->put('images/' . $image_hash_name, $file->get());
 
         return redirect()->route('damages.index')->with([
             'message' => 'Vehicle has been successfully stored in the database!',
