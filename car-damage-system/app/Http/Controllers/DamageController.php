@@ -45,11 +45,7 @@ class DamageController extends Controller
      */
     public function store(Request $request)
     {
-        if (!auth()->check()) {
-            return redirect()->route('login');
-        }
-
-        if (!auth()->user()->isAdmin) {
+        if (!auth()->check() || !auth()->user()->isAdmin) {
             return abort(403);
         }
 
@@ -159,11 +155,7 @@ class DamageController extends Controller
      */
     public function update(Request $request, Damage $damage)
     {
-        if (!auth()->check()) {
-            return redirect()->route('login');
-        }
-
-        if (!auth()->user()->isAdmin) {
+        if (!auth()->check() || !auth()->user()->isAdmin) {
             return abort(403);
         }
 
@@ -198,11 +190,7 @@ class DamageController extends Controller
      */
     public function destroy(Damage $damage)
     {
-        if (!auth()->check()) {
-            return redirect()->route('login');
-        }
-
-        if (!auth()->user()->isAdmin) {
+        if (!auth()->check()|| !auth()->user()->isAdmin) {
             return abort(403);
         }
 

@@ -34,11 +34,7 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        if (!auth()->check()) {
-            return redirect()->route('login');
-        }
-
-        if (!auth()->user()->isAdmin) {
+        if (!auth()->check() || !auth()->user()->isAdmin) {
             return abort(403);
         }
 
@@ -117,11 +113,7 @@ class VehicleController extends Controller
      */
     public function update(UpdateVehicleRequest $request, Vehicle $vehicle)
     {
-        if (!auth()->check()) {
-            return redirect()->route('login');
-        }
-
-        if (!auth()->user()->isAdmin) {
+        if (!auth()->check() || !auth()->user()->isAdmin) {
             return abort(403);
         }
 

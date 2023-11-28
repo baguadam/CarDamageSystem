@@ -64,11 +64,7 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        if (!auth()->check()) {
-            return redirect()->route('login');
-        }
-
-        if (!auth()->user()->isAdmin) {
+        if (!auth()->check() || !auth()->user()->isAdmin) {
             return abort(403);
         }
 
