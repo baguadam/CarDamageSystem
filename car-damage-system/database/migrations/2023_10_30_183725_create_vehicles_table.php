@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('model');
             $table->string('type');
             $table->integer('year');
-            $table->string('img_hash_name')->nullable();
+            $table->string('img_hash_name')->default('default.png');
             $table->timestamps();
         });
     }

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('place');
             $table->date('date');
-            $table->text('desc');
+            $table->text('desc')->nullable();
             $table->timestamps();
         });
     }

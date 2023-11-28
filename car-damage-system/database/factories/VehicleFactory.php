@@ -35,7 +35,7 @@ class VehicleFactory extends Factory
             'license' => fake()->regexify('[A-Z]{3}-\d{3}'),
             'model'   => fake()->randomElement($models),
             'type'    => fake()->text(8),
-            'year'    => fake()->dateTimeBetween('',''),
+            'year'    => fake()->numberBetween(1950, 2023)
         ];
     }
 }

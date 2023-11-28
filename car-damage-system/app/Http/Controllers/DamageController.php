@@ -126,7 +126,7 @@ class DamageController extends Controller
         }
         return view('damages.index', [
             'vehicle'    => $vehicle,
-            'img_name' => $vehicle->img_hash_name ?? 'default.png'
+            'img_name' => $vehicle->img_hash_name
         ]);
     }
 

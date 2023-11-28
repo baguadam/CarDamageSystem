@@ -27,7 +27,22 @@ class DatabaseSeeder extends Seeder
         });
 
         $damages->each(function($damage) use (&$vehicles) {
-            $damage->vehicles()->attach($vehicles->random(rand(1, 5)));
+            $relatedVehicles = $vehicles->random(rand(1, 5)); // kiszedjük a random járműveket
+            $damage->vehicles()->attach($relatedVehicles); // hozzáadjuk őket a damage-hez
+
+            // megkeressük a maximum gyártási évet, hogy ennek segítségével a damage időpontját
+            // egy biztosan későbbi dátumra állítsuk
+            $maxProdYear = -1;
+            foreach ($relatedVehicles as $vehicle) {
+                if ($vehicle->year > $maxProdYear) {
+                    $maxProdYear = $vehicle->year;
+                }
+            }
+
+            // damage időpontjának átállítása
+            $startDate = $maxProdYear . '-01-01';
+            $damage->date = fake()->dateTimeBetween($startDate, 'now')->format('Y-m-d');
+            $damage->save();
         });
     }
 }
