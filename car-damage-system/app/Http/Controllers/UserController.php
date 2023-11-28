@@ -74,7 +74,7 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('damages.index')->with([
-            'message' => 'User\'s premium rank has been successdully modified',
+            'message' => 'User\'s premium rank has been successfully modified!',
             'success' => true,
         ]);
     }

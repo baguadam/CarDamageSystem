@@ -23,7 +23,7 @@
                     <input type="date" id="date" name="date" value="{{ old('date', date("Y-m-d"))}}" min="1950-01-01" max="{{ date("Y-m-d") }}">
                 </div>
                 <div class="mb-6">
-                    <label for="description" class="block mb-2 text-md font-medium text-gray-900">Desecription (optional)</label>
+                    <label for="description" class="block mb-2 text-md font-medium text-gray-900">Description (optional)</label>
                     @error('description')
                         <div class="mb-2 bg-red-600 text-white p-1 rounded-sm">{{ $message }}</div>
                     @enderror

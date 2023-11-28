@@ -129,13 +129,13 @@ class VehicleController extends Controller
 
         $vehicle = Vehicle::findOrFail($vehicle->id); // kiszedjük a megfelelő járművet az adatbázisból
 
-        $new_image_hash_name = null;
+        $new_image_hash_name = 'default.png';
         if ($request->hasFile('attach_image')) {
             // ha töltött fel a felhasználó képet, a korábbi törüljük, majd feltöltjük
             // a tárhelyre az újonnan kívántat
             $file = $request->file('attach_image');
             $new_image_hash_name = $file->hashName();
-            if ($vehicle->img_hash_name) { // ha nem null, akkor törüljük
+            if ($vehicle->img_hash_name !== 'default.png') { // ha nem null, akkor törüljük
                 Storage::disk('public')->delete('images/' . $vehicle->img_hash_name); // töröljük a tárhelyről a korábbit
             }
             Storage::disk('public')->put('images/' . $new_image_hash_name, $file->get()); // új feltöltése
